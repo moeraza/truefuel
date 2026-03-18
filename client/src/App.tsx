@@ -24,7 +24,7 @@ function AppRouter() {
         <Route path="/how-to" component={HowTo} />
         <Route path="/cart" component={CartPage} />
         <Route path="/checkout" component={Checkout} />
-        <Route path="/order-success" component={OrderSuccess} />
+        <Route path="/order-success/:sessionId?" component={OrderSuccess} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

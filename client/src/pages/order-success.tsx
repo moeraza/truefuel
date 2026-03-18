@@ -1,20 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
+import { Link, useParams } from "wouter";
 import { Check, Loader2, Package } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
-function useSessionId() {
-  // Parse session_id from the hash query string: /#/order-success?session_id=cs_xxx
-  const hash = window.location.hash;
-  const queryPart = hash.split("?")[1];
-  if (!queryPart) return null;
-  const params = new URLSearchParams(queryPart);
-  return params.get("session_id");
-}
-
 export default function OrderSuccess() {
-  const sessionId = useSessionId();
+  const { sessionId } = useParams<{ sessionId?: string }>();
 
   const { data: session, isLoading, isError } = useQuery<{
     customerEmail: string | null;
