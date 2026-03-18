@@ -77,18 +77,18 @@ export default function Shop() {
       <p className="text-sm text-muted-foreground mb-10">All prices in CAD. Early-bird pricing — save up to 30%.</p>
 
       <section className="mb-12">
-        <h2 className="font-semibold text-base mb-1">Reusable Gel Flasks</h2>
-        <p className="text-sm text-muted-foreground mb-5">BPA-free, dishwasher safe, fits any running vest.</p>
-        <div className="grid gap-6 sm:grid-cols-2">
-          {flasks.map((p) => <ProductCard key={p.id} product={p} />)}
-        </div>
-      </section>
-
-      <section>
         <h2 className="font-semibold text-base mb-1">Carb Mix Powder</h2>
         <p className="text-sm text-muted-foreground mb-5">Proprietary science-backed blend. Mix with water to make your own gel.</p>
         <div className="grid gap-6 sm:grid-cols-2">
           {powders.map((p) => <ProductCard key={p.id} product={p} />)}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="font-semibold text-base mb-1">Reusable Gel Flasks</h2>
+        <p className="text-sm text-muted-foreground mb-5">BPA-free, dishwasher safe, fits any running vest.</p>
+        <div className="grid gap-6 sm:grid-cols-2">
+          {flasks.map((p) => <ProductCard key={p.id} product={p} />)}
         </div>
       </section>
     </div>
