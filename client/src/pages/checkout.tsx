@@ -1,13 +1,12 @@
 import { useCart } from "@/lib/cart";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Link, useLocation } from "wouter";
-import { ArrowLeft, Check, Loader2 } from "lucide-react";
+import { ArrowLeft, Check, Loader2, Lock } from "lucide-react";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
 export default function Checkout() {
@@ -18,7 +17,31 @@ export default function Checkout() {
   const [address, setAddress] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
 
-  const mutation = useMutation({
+  // Check if Stripe is configured on the server
+  const { data: stripeStatus } = useQuery<{ configured: boolean }>({
+    queryKey: ["/api/stripe/status"],
+  });
+
+  const stripeConfigured = stripeStatus?.configured ?? false;
+
+  // Stripe checkout mutation
+  const stripeMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("POST", "/api/create-checkout-session", {
+        items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
+      });
+      return res.json() as Promise<{ url: string }>;
+    },
+    onSuccess: (data) => {
+      if (data.url) {
+        clearCart();
+        window.location.href = data.url;
+      }
+    },
+  });
+
+  // Fallback demo order mutation (when Stripe is not configured)
+  const demoMutation = useMutation({
     mutationFn: async () => {
       const res = await apiRequest("POST", "/api/orders", {
         customerName: name,
@@ -64,7 +87,72 @@ export default function Checkout() {
     );
   }
 
-  const canSubmit = name.trim() && email.trim() && address.trim() && !mutation.isPending;
+  // When Stripe is configured, show streamlined checkout with Stripe redirect
+  if (stripeConfigured) {
+    return (
+      <div className="max-w-lg mx-auto px-6 py-12">
+        <Link href="/cart">
+          <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8" data-testid="button-back-cart">
+            <ArrowLeft className="w-4 h-4" />
+            Back to cart
+          </button>
+        </Link>
+
+        <h1 className="font-display text-xl font-bold mb-8">Checkout</h1>
+
+        {/* Order summary */}
+        <section className="mb-8">
+          <h2 className="font-semibold text-sm mb-3 text-muted-foreground uppercase tracking-wider">Order summary</h2>
+          <div className="space-y-2 mb-4">
+            {items.map((item) => (
+              <div key={item.productId} className="flex justify-between text-sm">
+                <span>{item.name} x {item.quantity}</span>
+                <span className="font-medium tabular-nums">${(item.price * item.quantity).toFixed(2)}</span>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between pt-3 border-t border-border">
+            <span className="font-semibold">Total</span>
+            <span className="font-bold tabular-nums" data-testid="text-checkout-total">${total.toFixed(2)} CAD</span>
+          </div>
+        </section>
+
+        {/* Stripe checkout button */}
+        <section>
+          {stripeMutation.isError && (
+            <p className="text-sm text-destructive mb-4">Something went wrong. Please try again.</p>
+          )}
+
+          <Button
+            className="w-full"
+            size="lg"
+            onClick={() => stripeMutation.mutate()}
+            disabled={stripeMutation.isPending}
+            data-testid="button-stripe-checkout"
+          >
+            {stripeMutation.isPending ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Redirecting to payment...
+              </>
+            ) : (
+              <>
+                <Lock className="w-4 h-4 mr-2" />
+                Pay ${total.toFixed(2)} CAD
+              </>
+            )}
+          </Button>
+          <p className="text-xs text-muted-foreground text-center mt-3 flex items-center justify-center gap-1.5">
+            <Lock className="w-3 h-3" />
+            Secure checkout powered by Stripe
+          </p>
+        </section>
+      </div>
+    );
+  }
+
+  // Fallback: demo checkout form (Stripe not configured)
+  const canSubmit = name.trim() && email.trim() && address.trim() && !demoMutation.isPending;
 
   return (
     <div className="max-w-lg mx-auto px-6 py-12">
@@ -101,7 +189,7 @@ export default function Checkout() {
           className="space-y-4"
           onSubmit={(e) => {
             e.preventDefault();
-            if (canSubmit) mutation.mutate();
+            if (canSubmit) demoMutation.mutate();
           }}
         >
           <div>
@@ -140,12 +228,12 @@ export default function Checkout() {
             />
           </div>
 
-          {mutation.isError && (
+          {demoMutation.isError && (
             <p className="text-sm text-destructive">Something went wrong. Please try again.</p>
           )}
 
           <Button type="submit" className="w-full" disabled={!canSubmit} data-testid="button-place-order">
-            {mutation.isPending ? (
+            {demoMutation.isPending ? (
               <>
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                 Processing...
@@ -155,7 +243,7 @@ export default function Checkout() {
             )}
           </Button>
           <p className="text-xs text-muted-foreground text-center">
-            This is a demo store. No real payment will be processed.
+            Stripe is not configured — this is a demo checkout.
           </p>
         </form>
       </section>

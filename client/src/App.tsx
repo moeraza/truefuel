@@ -11,6 +11,7 @@ import ProductDetail from "@/pages/product-detail";
 import HowTo from "@/pages/how-to";
 import CartPage from "@/pages/cart";
 import Checkout from "@/pages/checkout";
+import OrderSuccess from "@/pages/order-success";
 import NotFound from "@/pages/not-found";
 
 function AppRouter() {
@@ -23,6 +24,7 @@ function AppRouter() {
         <Route path="/how-to" component={HowTo} />
         <Route path="/cart" component={CartPage} />
         <Route path="/checkout" component={Checkout} />
+        <Route path="/order-success" component={OrderSuccess} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
