@@ -11,6 +11,21 @@ export interface IStorage {
 
 const SEED_PRODUCTS: Product[] = [
   {
+    id: "powder-1000",
+    name: "TrueFuel Carb Mix — 1kg",
+    slug: "carb-mix-1000",
+    description: "Proprietary science-backed carb blend optimized for max absorption. ~40 servings per bag at 25g carbs each. Best value for high-mileage training blocks.",
+    longDescription: "The bulk option for serious training blocks and race season. Our proprietary carb blend is engineered for optimal absorption — so you get more energy where it counts. At our early-bird price, you're paying $0.62 per gel — that's less than a quarter of what most runners spend on branded gels.\n\nEach 1kg bag yields approximately 40 gel servings (25g carbs each).\n\nAllergen info: Produced in a facility that handles dairy and soy.",
+    price: 24.99,
+    originalPrice: 34.99,
+    imageUrl: "/images/product-powder.jpg",
+    category: "powder",
+    carbsPer25g: 25,
+    servingsPerBag: 40,
+    weightGrams: 1000,
+    inStock: true,
+  },
+  {
     id: "flask-150",
     name: "TrueFuel Gel Flask — 150ml",
     slug: "gel-flask-150",
@@ -23,21 +38,6 @@ const SEED_PRODUCTS: Product[] = [
     carbsPer25g: null,
     servingsPerBag: null,
     weightGrams: 35,
-    inStock: true,
-  },
-  {
-    id: "powder-1000",
-    name: "TrueFuel Carb Mix — 1kg",
-    slug: "carb-mix-1000",
-    description: "1:0.8 maltodextrin:fructose blend. ~40 servings per bag at 25g carbs each. Best value for high-mileage training blocks.",
-    longDescription: "The bulk option for serious training blocks and race season. Same 1:0.8 maltodextrin-to-fructose formula, double the volume. At our early-bird price, you're paying $0.62 per gel — that's less than a quarter of what most runners spend on branded gels.\n\nEach 1kg bag yields approximately 40 gel servings (25g carbs each).\n\nIngredients: Maltodextrin (corn-derived), Crystalline Fructose.\nAllergen info: Produced in a facility that handles dairy and soy.",
-    price: 24.99,
-    originalPrice: 34.99,
-    imageUrl: "/images/product-powder.jpg",
-    category: "powder",
-    carbsPer25g: 25,
-    servingsPerBag: 40,
-    weightGrams: 1000,
     inStock: true,
   },
 ];

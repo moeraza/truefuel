@@ -42,7 +42,7 @@ function HeroSection() {
           for pennies, not dollars.
         </h1>
         <p className="text-base md:text-lg text-white/75 max-w-md mb-8 leading-relaxed">
-          A refillable gel system built on science-backed carb ratios.
+          A refillable gel system built on a proprietary science-backed blend.
           Cut costs by 80% and keep single-use packets off the trail.
         </p>
         <div className="flex flex-wrap gap-3">
@@ -67,7 +67,7 @@ function ValueProps() {
   const props = [
     { icon: DollarSign, title: "$0.62 / gel", desc: "vs $2.50–$5.00 for branded packets. Same carbs, fraction of the cost." },
     { icon: Leaf, title: "Zero single-use waste", desc: "One reusable flask replaces hundreds of foil gel packets per year." },
-    { icon: FlaskConical, title: "1:0.8 ratio", desc: "Maltodextrin:fructose blend backed by sports science for max absorption at 90g/hr." },
+    { icon: FlaskConical, title: "Science-backed blend", desc: "Proprietary carb formula optimized for max absorption at up to 90g/hr." },
   ];
   return (
     <section className="max-w-4xl mx-auto px-6 py-16">
@@ -219,11 +219,11 @@ function MissionSection() {
           </p>
           <p className="leading-relaxed mt-3">
             The sports nutrition industry charges premium prices for simple sugars wrapped in single-use plastic.
-            A packet of maltodextrin and fructose costs pennies to produce, but $2.50–$5.00 per serving to buy.
+            A packet of carb gel costs pennies to produce, but $2.50–$5.00 per serving to buy.
           </p>
           <p className="leading-relaxed mt-3">
             TrueFuel is the fix: buy the raw carb mix in bulk, mix your own gel, carry it in a reusable flask.
-            Same science-backed 1:0.8 maltodextrin:fructose ratio that the premium brands use —
+            A proprietary science-backed blend optimized for the same performance as premium brands —
             without the markup or the waste.
           </p>
         </div>

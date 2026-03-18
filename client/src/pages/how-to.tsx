@@ -9,7 +9,7 @@ const STEPS = [
     step: 1,
     title: "Measure the powder",
     icon: Beaker,
-    detail: "Scoop 100g of TrueFuel Carb Mix into a mixing container. That's 100g of carbohydrates — about 56g maltodextrin and 44g fructose at the 1:0.8 ratio. One full flask gives you 4 gel servings worth of fuel.",
+    detail: "Scoop 100g of TrueFuel Carb Mix into a mixing container. That's 100g of carbohydrates from our proprietary blend. One full flask gives you 4 gel servings worth of fuel.",
   },
   {
     step: 2,
@@ -102,16 +102,16 @@ export default function HowTo() {
 
       {/* The science */}
       <section className="mb-16">
-        <h2 className="font-semibold text-base mb-1">The science: why 1:0.8</h2>
+        <h2 className="font-semibold text-base mb-1">The science behind the blend</h2>
         <p className="text-sm text-muted-foreground mb-4 max-w-xl leading-relaxed">
-          Your gut absorbs glucose (from maltodextrin) and fructose through separate transporters — SGLT1 and GLUT5 respectively. 
-          Using both pathways simultaneously lets your body absorb up to 90g of carbohydrate per hour, 
-          compared to ~60g/hr from glucose alone.
+          Your gut uses multiple carbohydrate transporters simultaneously. Our proprietary blend is 
+          engineered to leverage these pathways, letting your body absorb up to 90g of carbohydrate per hour — 
+          compared to ~60g/hr from single-source carbs alone.
         </p>
         <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">
-          The 1:0.8 maltodextrin-to-fructose ratio maximizes this dual-transporter absorption. 
-          It's the same ratio used by Maurten, SiS Beta Fuel, and other premium gel brands — 
-          we just sell you the raw ingredients without the $3–$5 per packet markup.
+          TrueFuel's formula is optimized for maximum dual-transporter absorption — 
+          the same science used by premium gel brands, 
+          without the $3–$5 per packet markup.
         </p>
       </section>
 
