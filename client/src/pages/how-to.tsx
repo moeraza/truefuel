@@ -9,39 +9,39 @@ const STEPS = [
     step: 1,
     title: "Measure the powder",
     icon: Beaker,
-    detail: "Scoop 25g of TrueFuel Carb Mix into your flask. That's roughly 2 level tablespoons. This gives you 25g of carbohydrates — about 14g maltodextrin and 11g fructose at the 1:0.8 ratio.",
+    detail: "Scoop 100g of TrueFuel Carb Mix into a mixing container. That's 100g of carbohydrates — about 56g maltodextrin and 44g fructose at the 1:0.8 ratio. One full flask gives you 4 gel servings worth of fuel.",
   },
   {
     step: 2,
     title: "Add water",
     icon: Droplets,
-    detail: "Add 30–40ml of warm water (not boiling). Warm water dissolves the powder faster and creates a smoother, thicker gel consistency. Less water = thicker gel. More water = thinner, more drinkable.",
+    detail: "Add 67ml of warm water (not boiling). Warm water dissolves the powder faster and creates a smoother gel consistency.",
   },
   {
     step: 3,
-    title: "Shake and seal",
+    title: "Blend and fill",
     icon: FlaskConical,
-    detail: "Lock the bite valve closed, then shake the flask firmly for 15–20 seconds until fully dissolved. No lumps. The gel should be a smooth, slightly viscous liquid. Seal the valve and you're race-ready.",
+    detail: "Mix with a blender, hand mixer, or vigorously by hand until fully dissolved — no lumps. Pour the gel into your 150ml flask, seal the bite valve, and you're race-ready.",
   },
   {
     step: 4,
     title: "Fuel on the move",
     icon: Timer,
-    detail: "During your run, aim for 1 serving (25g carbs) every 20–30 minutes. For maximum absorption of 90g/hr, take a serving every 15–17 minutes. Chase each serving with a sip of water for best results.",
+    detail: "Each flask holds ~100g of carbs (4 servings). Sip roughly a quarter of the flask every 20–30 minutes. For maximum absorption of 90g/hr, take smaller, more frequent sips. Chase each sip with water for best results.",
   },
 ];
 
 const TIPS = [
-  { title: "Batch prep the night before", text: "Mix your gels the evening before a long run. Store filled flasks in the fridge overnight — they'll be ready to grab and go." },
-  { title: "Adjust thickness to preference", text: "Use 25ml water for a thick, peanut-butter-like gel. Use 50ml for a thin, easy-to-swallow consistency. Experiment in training, not on race day." },
+  { title: "Batch prep the night before", text: "Mix your gel the evening before a long run. Store the filled flask in the fridge overnight — it'll be ready to grab and go." },
+  { title: "Adjust thickness to preference", text: "Use less water (50ml) for a thicker gel, or more (80ml) for a thinner, easier-to-swallow consistency. Experiment in training, not on race day." },
   { title: "Add flavoring (optional)", text: "A pinch of salt (1/8 tsp) aids electrolyte balance. A few drops of lemon juice or Mio-style flavoring makes it tastier. Keep it simple." },
-  { title: "Clean your flasks after every use", text: "Rinse with warm soapy water immediately after your run. Flasks are dishwasher safe — top rack. Don't let gel dry inside." },
+  { title: "Clean your flask after every use", text: "Rinse with warm soapy water immediately after your run. Flasks are dishwasher safe — top rack. Don't let gel dry inside." },
 ];
 
 const FUELING_TABLE = [
-  { duration: "60–90 min", carbs: "30–60g/hr", servings: "1–2 per hour", note: "Moderate effort, shorter races" },
-  { duration: "90 min – 3 hr", carbs: "60–80g/hr", servings: "2–3 per hour", note: "Marathon, half-marathon" },
-  { duration: "3+ hours", carbs: "80–90g/hr", servings: "3–4 per hour", note: "Ultra distance, gut-trained athletes" },
+  { duration: "60–90 min", carbs: "30–60g/hr", servings: "¼–½ flask/hr", note: "Moderate effort, shorter races" },
+  { duration: "90 min – 3 hr", carbs: "60–80g/hr", servings: "½–¾ flask/hr", note: "Marathon, half-marathon" },
+  { duration: "3+ hours", carbs: "80–100g/hr", servings: "¾–1 flask/hr", note: "Ultra distance, gut-trained athletes" },
 ];
 
 export default function HowTo() {
@@ -49,7 +49,7 @@ export default function HowTo() {
     <div className="max-w-3xl mx-auto px-6 py-12">
       <h1 className="font-display text-xl font-bold mb-2" data-testid="text-howto-title">How to make your gel</h1>
       <p className="text-sm text-muted-foreground mb-10 max-w-lg">
-        Four steps from powder to race-ready fuel. No blender needed — just a flask, a scoop, and water.
+        Four steps from powder to race-ready fuel. A flask, a scoop, water, and a blender or some elbow grease.
       </p>
 
       {/* Steps */}

@@ -3,7 +3,6 @@ import { useCart } from "@/lib/cart";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Menu, X, Sun, Moon } from "lucide-react";
 import { useState, useEffect } from "react";
-import { PerplexityAttribution } from "@/components/PerplexityAttribution";
 
 function TrueFuelLogo() {
   return (
@@ -158,11 +157,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-6 flex flex-wrap items-center justify-between gap-4">
+          <div className="border-t border-border pt-6">
             <p className="text-xs text-muted-foreground">
               &copy; 2026 TrueFuel. All prices in CAD.
             </p>
-            <PerplexityAttribution />
           </div>
         </div>
       </footer>
