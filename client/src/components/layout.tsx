@@ -147,8 +147,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <h4 className="font-semibold text-sm mb-3">Shop</h4>
               <ul className="space-y-2">
                 <li><Link href="/shop"><span className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">All products</span></Link></li>
-                <li><Link href="/product/gel-flask-150"><span className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">Gel flasks</span></Link></li>
-                <li><Link href="/product/carb-mix-500"><span className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">Carb mix</span></Link></li>
+                <li><Link href="/product/gel-flask-150"><span className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">Gel flask</span></Link></li>
+                <li><Link href="/product/carb-mix-1000"><span className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">Carb mix</span></Link></li>
               </ul>
             </div>
             <div>
