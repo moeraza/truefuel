@@ -65,11 +65,14 @@ export async function registerRoutes(
 
     // Build line items from server-side product data (prevents price tampering)
     const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
+    let subtotal = 0;
     for (const item of items) {
       const product = await storage.getProductById(item.productId);
       if (!product) {
         return res.status(400).json({ message: `Product not found: ${item.productId}` });
       }
+      const unitAmount = Math.round(product.price * 100); // cents
+      subtotal += unitAmount * item.quantity;
       lineItems.push({
         price_data: {
           currency: "cad",
@@ -77,9 +80,27 @@ export async function registerRoutes(
             name: product.name,
             description: product.description,
           },
-          unit_amount: Math.round(product.price * 100), // cents
+          unit_amount: unitAmount,
         },
         quantity: item.quantity,
+      });
+    }
+
+    // Flat-rate shipping: $10 CAD, free on orders $75+
+    const FREE_SHIPPING_THRESHOLD = 7500; // cents
+    const FLAT_SHIPPING_RATE = 1000; // cents
+    const shippingCost = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : FLAT_SHIPPING_RATE;
+    if (shippingCost > 0) {
+      lineItems.push({
+        price_data: {
+          currency: "cad",
+          product_data: {
+            name: "Flat-rate shipping",
+            description: "Standard shipping across Canada",
+          },
+          unit_amount: shippingCost,
+        },
+        quantity: 1,
       });
     }
 

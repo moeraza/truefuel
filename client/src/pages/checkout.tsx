@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
 export default function Checkout() {
-  const { items, total, clearCart } = useCart();
+  const { items, subtotal, shippingCost, total, clearCart } = useCart();
   const [, navigate] = useLocation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -111,9 +111,19 @@ export default function Checkout() {
               </div>
             ))}
           </div>
-          <div className="flex justify-between pt-3 border-t border-border">
-            <span className="font-semibold">Total</span>
-            <span className="font-bold tabular-nums" data-testid="text-checkout-total">${total.toFixed(2)} CAD</span>
+          <div className="space-y-2 pt-3 border-t border-border">
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Subtotal</span>
+              <span className="tabular-nums">${subtotal.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-muted-foreground">Shipping</span>
+              <span className="tabular-nums">{shippingCost === 0 ? <span className="text-primary font-medium">Free</span> : `$${shippingCost.toFixed(2)}`}</span>
+            </div>
+            <div className="flex justify-between pt-2 border-t border-border">
+              <span className="font-semibold">Total</span>
+              <span className="font-bold tabular-nums" data-testid="text-checkout-total">${total.toFixed(2)} CAD</span>
+            </div>
           </div>
         </section>
 
@@ -176,9 +186,19 @@ export default function Checkout() {
             </div>
           ))}
         </div>
-        <div className="flex justify-between pt-3 border-t border-border">
-          <span className="font-semibold">Total</span>
-          <span className="font-bold tabular-nums" data-testid="text-checkout-total">${total.toFixed(2)} CAD</span>
+        <div className="space-y-2 pt-3 border-t border-border">
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Subtotal</span>
+            <span className="tabular-nums">${subtotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Shipping</span>
+            <span className="tabular-nums">{shippingCost === 0 ? <span className="text-primary font-medium">Free</span> : `$${shippingCost.toFixed(2)}`}</span>
+          </div>
+          <div className="flex justify-between pt-2 border-t border-border">
+            <span className="font-semibold">Total</span>
+            <span className="font-bold tabular-nums" data-testid="text-checkout-total">${total.toFixed(2)} CAD</span>
+          </div>
         </div>
       </section>
 

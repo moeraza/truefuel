@@ -5,7 +5,7 @@ import { Link } from "wouter";
 import { Minus, Plus, Trash2, ShoppingCart, ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function CartPage() {
-  const { items, updateQuantity, removeItem, total, count } = useCart();
+  const { items, updateQuantity, removeItem, subtotal, shippingCost, total, count } = useCart();
 
   if (items.length === 0) {
     return (
@@ -78,9 +78,28 @@ export default function CartPage() {
         ))}
       </div>
 
-      <div className="flex items-center justify-between py-4 border-t border-border mb-6">
-        <span className="font-semibold text-base">Total</span>
-        <span className="font-bold text-lg tabular-nums" data-testid="text-cart-total">${total.toFixed(2)} CAD</span>
+      <div className="space-y-2 py-4 border-t border-border mb-6">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-muted-foreground">Subtotal</span>
+          <span className="text-sm tabular-nums" data-testid="text-cart-subtotal">${subtotal.toFixed(2)}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-muted-foreground">Shipping</span>
+          <span className="text-sm tabular-nums" data-testid="text-cart-shipping">
+            {shippingCost === 0 ? (
+              <span className="text-primary font-medium">Free</span>
+            ) : (
+              `$${shippingCost.toFixed(2)}`
+            )}
+          </span>
+        </div>
+        {shippingCost > 0 && (
+          <p className="text-xs text-muted-foreground">Free shipping on orders over $75</p>
+        )}
+        <div className="flex items-center justify-between pt-2 border-t border-border">
+          <span className="font-semibold text-base">Total</span>
+          <span className="font-bold text-lg tabular-nums" data-testid="text-cart-total">${total.toFixed(2)} CAD</span>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-3 justify-between">
