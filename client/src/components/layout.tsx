@@ -7,14 +7,14 @@ import { PerplexityAttribution } from "@/components/PerplexityAttribution";
 
 function TrueFuelLogo() {
   return (
-    <svg viewBox="0 0 140 28" aria-label="TrueFuel" className="h-6 w-auto" fill="none">
-      {/* Stylized leaf/drop shape */}
-      <path d="M6 24C6 24 2 18 2 13C2 7.5 6 2 12 2C18 2 22 7.5 22 13C22 18 18 24 18 24" 
+    <svg viewBox="0 0 150 28" aria-label="TrueFuel" className="h-6 w-auto" fill="none">
+      {/* Mountain peak mark */}
+      <path d="M4 24L12 4L16 14L20 8L26 24" 
         stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M12 8V18M9 12L12 8L15 12" 
-        stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M8 24L12 16L16 24" 
+        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5"/>
       {/* Text */}
-      <text x="28" y="20" fontFamily="'Cabinet Grotesk', 'Satoshi', sans-serif" fontWeight="700" fontSize="18" fill="currentColor">
+      <text x="32" y="20" fontFamily="'Cabinet Grotesk', 'Satoshi', sans-serif" fontWeight="700" fontSize="18" fill="currentColor" letterSpacing="-0.5">
         TrueFuel
       </text>
     </svg>

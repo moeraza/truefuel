@@ -25,8 +25,9 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="h-8 w-48 bg-muted animate-pulse rounded mb-4" />
+        <div className="h-64 bg-muted animate-pulse rounded mb-4" />
         <div className="h-4 w-96 bg-muted animate-pulse rounded mb-2" />
         <div className="h-4 w-72 bg-muted animate-pulse rounded" />
       </div>
@@ -56,7 +57,7 @@ export default function ProductDetail() {
   const descParagraphs = product.longDescription.split("\n\n");
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-12">
+    <div className="max-w-4xl mx-auto px-6 py-12">
       <Link href="/shop">
         <button className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8" data-testid="button-back">
           <ArrowLeft className="w-4 h-4" />
@@ -64,88 +65,100 @@ export default function ProductDetail() {
         </button>
       </Link>
 
-      <div className="flex flex-col gap-6">
-        <div>
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <h1 className="font-display text-xl font-bold" data-testid="text-product-title">{product.name}</h1>
-            {product.originalPrice && (
-              <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/10 shrink-0">
-                Save ${(product.originalPrice - product.price).toFixed(2)}
-              </Badge>
-            )}
-          </div>
-          <p className="text-muted-foreground mt-2 leading-relaxed">{product.description}</p>
+      <div className="grid md:grid-cols-2 gap-8">
+        {/* Product image */}
+        <div className="aspect-square rounded-lg overflow-hidden bg-muted">
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        <div className="flex items-center gap-4 py-4 border-y border-border">
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold" data-testid="text-product-price">${product.price.toFixed(2)}</span>
-            {product.originalPrice && (
-              <span className="text-base text-muted-foreground line-through">${product.originalPrice.toFixed(2)}</span>
-            )}
-            <span className="text-sm text-muted-foreground">CAD</span>
-          </div>
-          <div className="ml-auto">
-            <Button onClick={handleAdd} data-testid="button-add-to-cart">
-              {added ? (
-                <>
-                  <Check className="w-4 h-4 mr-1.5" />
-                  Added
-                </>
-              ) : (
-                <>
-                  <ShoppingCart className="w-4 h-4 mr-1.5" />
-                  Add to cart
-                </>
+        {/* Product info */}
+        <div className="flex flex-col gap-5">
+          <div>
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <h1 className="font-display text-xl font-bold" data-testid="text-product-title">{product.name}</h1>
+              {product.originalPrice && (
+                <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/10 shrink-0">
+                  Save ${(product.originalPrice - product.price).toFixed(2)}
+                </Badge>
               )}
-            </Button>
+            </div>
+            <p className="text-muted-foreground mt-2 leading-relaxed">{product.description}</p>
           </div>
-        </div>
 
-        {product.servingsPerBag && (
-          <div className="grid grid-cols-3 gap-4 text-center py-3">
-            <div>
-              <span className="text-lg font-bold">{product.servingsPerBag}</span>
-              <span className="text-xs text-muted-foreground block mt-0.5">servings</span>
+          <div className="flex items-center gap-4 py-4 border-y border-border">
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl font-bold" data-testid="text-product-price">${product.price.toFixed(2)}</span>
+              {product.originalPrice && (
+                <span className="text-base text-muted-foreground line-through">${product.originalPrice.toFixed(2)}</span>
+              )}
+              <span className="text-sm text-muted-foreground">CAD</span>
             </div>
-            <div>
-              <span className="text-lg font-bold">{product.weightGrams}g</span>
-              <span className="text-xs text-muted-foreground block mt-0.5">bag weight</span>
-            </div>
-            <div>
-              <span className="text-lg font-bold">${(product.price / product.servingsPerBag).toFixed(2)}</span>
-              <span className="text-xs text-muted-foreground block mt-0.5">per serving</span>
+            <div className="ml-auto">
+              <Button onClick={handleAdd} data-testid="button-add-to-cart">
+                {added ? (
+                  <>
+                    <Check className="w-4 h-4 mr-1.5" />
+                    Added
+                  </>
+                ) : (
+                  <>
+                    <ShoppingCart className="w-4 h-4 mr-1.5" />
+                    Add to cart
+                  </>
+                )}
+              </Button>
             </div>
           </div>
-        )}
 
-        <div className="space-y-4">
-          {descParagraphs.map((para, i) => {
-            if (para.startsWith("Features:")) {
-              const items = para.replace("Features:", "").trim().split("\n- ").filter(Boolean);
+          {product.servingsPerBag && (
+            <div className="grid grid-cols-3 gap-4 text-center py-3">
+              <div>
+                <span className="text-lg font-bold">{product.servingsPerBag}</span>
+                <span className="text-xs text-muted-foreground block mt-0.5">servings</span>
+              </div>
+              <div>
+                <span className="text-lg font-bold">{product.weightGrams}g</span>
+                <span className="text-xs text-muted-foreground block mt-0.5">bag weight</span>
+              </div>
+              <div>
+                <span className="text-lg font-bold">${(product.price / product.servingsPerBag).toFixed(2)}</span>
+                <span className="text-xs text-muted-foreground block mt-0.5">per serving</span>
+              </div>
+            </div>
+          )}
+
+          <div className="space-y-4">
+            {descParagraphs.map((para, i) => {
+              if (para.startsWith("Features:")) {
+                const items = para.replace("Features:", "").trim().split("\n- ").filter(Boolean);
+                return (
+                  <div key={i}>
+                    <h3 className="font-semibold text-sm mb-2">Features</h3>
+                    <ul className="space-y-1.5">
+                      {items.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                          {item.replace("- ", "")}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              }
+              if (para.startsWith("Ingredients:") || para.startsWith("Allergen")) {
+                return (
+                  <p key={i} className="text-xs text-muted-foreground leading-relaxed">{para}</p>
+                );
+              }
               return (
-                <div key={i}>
-                  <h3 className="font-semibold text-sm mb-2">Features</h3>
-                  <ul className="space-y-1.5">
-                    {items.map((item, j) => (
-                      <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                        {item.replace("- ", "")}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p key={i} className="text-sm text-muted-foreground leading-relaxed">{para}</p>
               );
-            }
-            if (para.startsWith("Ingredients:") || para.startsWith("Allergen")) {
-              return (
-                <p key={i} className="text-xs text-muted-foreground leading-relaxed">{para}</p>
-              );
-            }
-            return (
-              <p key={i} className="text-sm text-muted-foreground leading-relaxed">{para}</p>
-            );
-          })}
+            })}
+          </div>
         </div>
       </div>
     </div>

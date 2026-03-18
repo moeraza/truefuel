@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/lib/cart";
 import { type Product } from "@shared/schema";
 import { ShoppingCart } from "lucide-react";
@@ -19,7 +18,7 @@ export default function Shop() {
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="grid gap-6 sm:grid-cols-2">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-64 rounded-md bg-muted animate-pulse" />
+            <div key={i} className="h-80 rounded-md bg-muted animate-pulse" />
           ))}
         </div>
       </div>
@@ -28,36 +27,46 @@ export default function Shop() {
 
   function ProductCard({ product }: { product: Product }) {
     return (
-      <Card className="p-5 flex flex-col gap-4" data-testid={`card-product-${product.id}`}>
-        <div>
-          <Link href={`/product/${product.slug}`}>
-            <h3 className="font-semibold text-base leading-snug hover:text-primary transition-colors cursor-pointer" data-testid={`text-product-name-${product.id}`}>
-              {product.name}
-            </h3>
-          </Link>
-          <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{product.description}</p>
+      <Card className="overflow-hidden flex flex-col" data-testid={`card-product-${product.id}`}>
+        {/* Product image */}
+        <div className="aspect-[4/3] overflow-hidden bg-muted">
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          />
         </div>
-        <div className="flex items-end justify-between mt-auto">
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold" data-testid={`text-price-${product.id}`}>${product.price.toFixed(2)}</span>
-            {product.originalPrice && (
-              <span className="text-sm text-muted-foreground line-through">${product.originalPrice.toFixed(2)}</span>
-            )}
+        <div className="p-5 flex flex-col gap-3 flex-1">
+          <div>
+            <Link href={`/product/${product.slug}`}>
+              <h3 className="font-semibold text-base leading-snug hover:text-primary transition-colors cursor-pointer" data-testid={`text-product-name-${product.id}`}>
+                {product.name}
+              </h3>
+            </Link>
+            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{product.description}</p>
           </div>
-          <Button
-            size="sm"
-            onClick={() => cart.addItem({ id: product.id, name: product.name, price: product.price, imageUrl: product.imageUrl })}
-            data-testid={`button-add-${product.id}`}
-          >
-            <ShoppingCart className="w-4 h-4 mr-1.5" />
-            Add
-          </Button>
+          <div className="flex items-end justify-between mt-auto">
+            <div className="flex items-baseline gap-2">
+              <span className="text-lg font-bold" data-testid={`text-price-${product.id}`}>${product.price.toFixed(2)}</span>
+              {product.originalPrice && (
+                <span className="text-sm text-muted-foreground line-through">${product.originalPrice.toFixed(2)}</span>
+              )}
+            </div>
+            <Button
+              size="sm"
+              onClick={() => cart.addItem({ id: product.id, name: product.name, price: product.price, imageUrl: product.imageUrl })}
+              data-testid={`button-add-${product.id}`}
+            >
+              <ShoppingCart className="w-4 h-4 mr-1.5" />
+              Add
+            </Button>
+          </div>
+          {product.servingsPerBag && (
+            <p className="text-xs text-muted-foreground">
+              ~{product.servingsPerBag} servings · ${(product.price / product.servingsPerBag).toFixed(2)}/serving
+            </p>
+          )}
         </div>
-        {product.servingsPerBag && (
-          <p className="text-xs text-muted-foreground">
-            ~{product.servingsPerBag} servings · ${(product.price / product.servingsPerBag).toFixed(2)}/serving
-          </p>
-        )}
       </Card>
     );
   }
