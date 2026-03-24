@@ -14,6 +14,7 @@ import CartPage from "@/pages/cart";
 import Checkout from "@/pages/checkout";
 import OrderSuccess from "@/pages/order-success";
 import NotFound from "@/pages/not-found";
+import PrivacyPolicy from "@/pages/privacy-policy";
 
 function ScrollToTop() {
   const [location] = useLocation();
@@ -35,6 +36,7 @@ function AppRouter() {
         <Route path="/cart" component={CartPage} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/order-success/:sessionId?" component={OrderSuccess} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

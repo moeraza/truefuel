@@ -157,10 +157,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </ul>
             </div>
           </div>
-          <div className="border-t border-border pt-6">
+          <div className="border-t border-border pt-6 flex flex-wrap items-center justify-between gap-4">
             <p className="text-xs text-muted-foreground">
               &copy; 2026 TrueFuel. All prices in CAD.
             </p>
+            <Link href="/privacy-policy">
+              <span className="text-xs text-muted-foreground hover:text-foreground cursor-pointer">Privacy Policy</span>
+            </Link>
           </div>
         </div>
       </footer>
